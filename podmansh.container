@@ -1,0 +1,17 @@
+#Beispiel mit einen Podman-Container mit minimalen Rechten
+[Unit]
+Description=The Podmansh container
+After=local-fs.target
+
+[Container]
+Image=registry.fedoraproject.org/fedora
+ContainerName=podmansh
+RemapUsers=keep-id
+RunInit=yes
+DropCapability=all
+NoNewPrivileges=true
+
+Exec=sleep infinity
+
+[Install]
+RequiredBy=default.target
