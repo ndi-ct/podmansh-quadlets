@@ -1,0 +1,19 @@
+#Beispiel für einen Podman-Container mit Homeverzeichnis, in dem der User Systemverwalterrechte erlangen kann
+[Unit]
+Description=The Podmansh container
+After=local-fs.target
+
+[Container]
+Image=registry.fedoraproject.org/fedora
+ContainerName=podmansh
+#RemapUsers=keep-id
+RunInit=yes
+
+Volume=%h/data:%h:Z
+Exec=sleep infinity
+
+[Service]
+ExecStartPre=/usr/bin/mkdir -p %h/data
+
+[Install]
+RequiredBy=default.target
